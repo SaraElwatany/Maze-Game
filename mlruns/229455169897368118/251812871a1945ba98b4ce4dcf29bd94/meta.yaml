@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/229455169897368118/251812871a1945ba98b4ce4dcf29bd94/artifacts
+end_time: 1747645570515
+entry_point_name: ''
+experiment_id: '229455169897368118'
+lifecycle_stage: active
+run_id: 251812871a1945ba98b4ce4dcf29bd94
+run_name: thundering-skink-515
+run_uuid: 251812871a1945ba98b4ce4dcf29bd94
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747645492186
+status: 3
+tags: []
+user_id: saraa
