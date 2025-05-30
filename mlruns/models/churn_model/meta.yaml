@@ -1,7 +1,0 @@
-aliases:
-  productionmodel: '4'
-  stagingmodel: '2'
-creation_timestamp: 1747603231099
-description: ''
-last_updated_timestamp: 1747685298822
-name: churn_model
