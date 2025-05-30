@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/229455169897368118/327ef18078e446bf88941856d0669558/artifacts
+end_time: 1747645402709
+entry_point_name: ''
+experiment_id: '229455169897368118'
+lifecycle_stage: active
+run_id: 327ef18078e446bf88941856d0669558
+run_name: run_11
+run_uuid: 327ef18078e446bf88941856d0669558
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747645398574
+status: 3
+tags: []
+user_id: saraa

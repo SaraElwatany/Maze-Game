@@ -1,0 +1,15 @@
+aliases:
+- productionmodel
+creation_timestamp: 1747646721597
+current_stage: Production
+description: ''
+last_updated_timestamp: 1747685286980
+name: churn_model
+run_id: 9a174272665945a0b7d65a4a84d178eb
+run_link: ''
+source: mlflow-artifacts:/229455169897368118/9a174272665945a0b7d65a4a84d178eb/artifacts/Model
+status: READY
+status_message: null
+storage_location: mlflow-artifacts:/229455169897368118/9a174272665945a0b7d65a4a84d178eb/artifacts/Model
+user_id: null
+version: 4

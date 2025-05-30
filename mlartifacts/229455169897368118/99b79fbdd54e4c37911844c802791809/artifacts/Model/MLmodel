@@ -1,0 +1,42 @@
+artifact_path: Model
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.10.9
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.6.1
+is_signature_from_type_hint: false
+mlflow_version: 2.22.0
+model_size_bytes: 1366246
+model_uuid: c57a922b958d465b9decb2715978755d
+prompts: null
+run_id: 99b79fbdd54e4c37911844c802791809
+saved_input_example_info:
+  artifact_path: input_example.json
+  pandas_orient: split
+  serving_input_path: serving_input_example.json
+  type: dataframe
+signature:
+  inputs: '[{"type": "double", "name": "standardscaler__CreditScore", "required":
+    true}, {"type": "double", "name": "standardscaler__Age", "required": true}, {"type":
+    "double", "name": "standardscaler__Tenure", "required": true}, {"type": "double",
+    "name": "standardscaler__Balance", "required": true}, {"type": "double", "name":
+    "standardscaler__NumOfProducts", "required": true}, {"type": "double", "name":
+    "standardscaler__HasCrCard", "required": true}, {"type": "double", "name": "standardscaler__IsActiveMember",
+    "required": true}, {"type": "double", "name": "standardscaler__EstimatedSalary",
+    "required": true}, {"type": "double", "name": "onehotencoder__Geography_Germany",
+    "required": true}, {"type": "double", "name": "onehotencoder__Geography_Spain",
+    "required": true}, {"type": "double", "name": "onehotencoder__Gender_Male", "required":
+    true}]'
+  outputs: '[{"type": "long", "name": "Exited", "required": true}]'
+  params: null
+type_hint_from_example: false
+utc_time_created: '2025-05-19 09:05:11.492471'
