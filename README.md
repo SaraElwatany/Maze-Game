@@ -175,11 +175,11 @@ Docker Compose is used to manage services.
 
 ## 🧩 Why These Metrics
 
-Below are the selected metrics with justifications:
+**Below are the selected metrics with justifications:**
 
 ---
 
-### ✅ 1. Model-Related Metric: `model_failures_total`
+#### ✅ 1. Model-Related Metric: `model_failures_total`
 
 - **Why it matters**: Tracks the **total number of failed inferences**, such as internal errors during model execution.
 - **Use case**: Identifies instability in the model's behavior and helps diagnose recurring prediction failures.
@@ -187,7 +187,7 @@ Below are the selected metrics with justifications:
 
 ---
 
-### ✅ 2. Data-Related Metric: `rate(data_input_errors_total[1m])`
+#### ✅ 2. Data-Related Metric: `rate(data_input_errors_total[1m])`
 
 - **Why it matters**: Monitors the **rate of malformed or invalid input data** sent to the model.
 - **Use case**: Detects **data drift**, input format changes, or upstream pipeline issues.
@@ -195,7 +195,7 @@ Below are the selected metrics with justifications:
 
 ---
 
-### ✅ 3. Server-Related Metric: `rate(model_inference_time_seconds_sum[1m]) / rate(model_inference_time_seconds_count[1m])`
+#### ✅ 3. Server-Related Metric: `rate(model_inference_time_seconds_sum[1m]) / rate(model_inference_time_seconds_count[1m])`
 
 - **Why it matters**: Measures **average inference time** per request over the last minute.
 - **Use case**: Detects **backend latency** and helps maintain a responsive user experience.
@@ -203,7 +203,7 @@ Below are the selected metrics with justifications:
 
 ---
 
-### ✅ 4. API Usage Metric: `sum by (endpoint) (http_requests_total)`
+#### ✅ 4. API Usage Metric: `sum by (endpoint) (http_requests_total)`
 
 - **Why it matters**: Shows how often each **API endpoint** is accessed.
 - **Use case**: Identifies **popular endpoints**, unused routes, and potential abuse patterns.
