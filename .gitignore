@@ -180,3 +180,7 @@ cython_debug/
 
 # Ignore models
 *.pkl
+
+
+# Ignore virtual environment
+venv

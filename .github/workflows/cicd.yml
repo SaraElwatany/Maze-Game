@@ -1,29 +1,30 @@
-name: Build, Test, and Deploy to AWS EC2
+name: Build, Push to Docker Hub, and Deploy to ClawCloud
 
 on:
   push:
     branches:
-      - deployment
+      - gesture-ml-production
 
 env:
-  AWS_REGION: us-east-1
-  ECR_REPO: churn-prediction
-  IMAGE_TAG: sara0285
+  IMAGE_NAME: maze-game
+  IMAGE_TAG: latest
 
 jobs:
   build_test_deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Set up Python 
         uses: actions/setup-python@v3
         with:
-          python-version: '3.10' 
+          python-version: '3.10'
 
       - name: Install dependencies
         run: |
-          pip install -r apis/requirements.txt
+          pip install -r requirements.txt
 
       - name: Run tests
         run: |
@@ -31,44 +32,26 @@ jobs:
 
       - name: Build Docker image
         run: |
-          set -x # Enable debug logging
-          docker build -t $ECR_REPO:$IMAGE_TAG ./apis
-          docker tag $ECR_REPO:$IMAGE_TAG ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO:$IMAGE_TAG
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/$IMAGE_NAME:$IMAGE_TAG ./apis
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@0e613a0980cbf65ed5b322eb7a1e075d28913a83
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
-
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@62f4f872db3836360b72999f4b87f1ff13310f3a
-
-      - name: Push Docker Image to ECR
+      - name: Login to Docker Hub
         run: |
-          aws ecr get-login-password --region ${{ env.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com
-          docker tag $ECR_REPO:$IMAGE_TAG ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/$ECR_REPO:$IMAGE_TAG
-          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/$ECR_REPO:$IMAGE_TAG
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-      - name: Deploy to EC2
+      - name: Push Docker image to Docker Hub
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/$IMAGE_NAME:$IMAGE_TAG
+
+      - name: Deploy to ClawCloud via SSH
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.EC2_SSH_KEY }}
+          host: ${{ secrets.CLAW_HOST }}
+          username: ${{ secrets.CLAW_USERNAME }}
+          key: ${{ secrets.CLAW_SSH_KEY }}
           script: |
-            # Login to AWS ECR
-            aws ecr get-login-password --region ${{ env.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com
-            
-            # Pull the image with the correct tag
-            docker pull ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/churn-prediction:sara0285
-            
-            # Stop and remove existing container if it exists
-            docker stop churn-prediction || true
-            docker rm churn-prediction || true
-            
-            # Run the new container
-            docker run -d -p 80:8000 --name churn-prediction ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/churn-prediction:sara0285
+            docker pull ${{ secrets.DOCKER_USERNAME }}/$IMAGE_NAME:$IMAGE_TAG
 
+            docker stop $IMAGE_NAME || true
+            docker rm $IMAGE_NAME || true
+
+            docker run -d -p 80:8000 --name $IMAGE_NAME ${{ secrets.DOCKER_USERNAME }}/$IMAGE_NAME:$IMAGE_TAG
