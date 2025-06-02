@@ -1,4 +1,5 @@
-# Maze Game Using Hand Gestures
+# 🧠 Maze Game Using Hand Gestures
+
 
 ## 📑 Table of Contents
 
@@ -57,7 +58,7 @@ Maze-Game/
 ```bash
 git clone https://github.com/SaraElwatany/Maze-Game.git
 cd Maze-Game
-git checkout gesture-ml-production
+git checkout gesture-ml-research
 ```
 
 
