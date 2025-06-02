@@ -126,14 +126,14 @@ Tracked models:
 
 ### 📊 Model Performance Summary
 
-| Model                      | Hyperparameters                                                                 | Accuracy (%) | Precision | Recall  | F1-score |
-|----------------------------|----------------------------------------------------------------------------------|--------------|-----------|---------|----------|
-| **K-Nearest Neighbors**    | `n_neighbors=4`, `weights=distance`, `p=2`                                       | 92.54        | 0.9262    | 0.9254  | 0.9257   |
-| **SVM (Linear)**           | `kernel=linear`, `C=2`, `loss=hinge`, `max_iter=3000`, `multi_class=ovr`        | 81.36        | 0.8143    | 0.8136  | 0.8120   |
-| **SVM (RBF Kernel)**       | `kernel=rbf`, `C=370`, `gamma=0.5`, `decision_function_shape=ovr`               | 97.27        | 0.9728    | 0.9727  | 0.9727   |
-| **SVM (Polynomial Kernel)**| `kernel=poly`, `C=2`, `gamma=10`, `degree=3`, `decision_function_shape=ovr`     | 97.80        | 0.9782    | 0.9780  | 0.9780   |
-| **Random Forest**          | `n_estimators=500`                                                              | 95.09        | 0.9514    | 0.9509  | 0.9510   |
-| **Extreme Gradient Boosting** | `n_estimators=500`, `learning_rate=0.1`, `max_depth=3`                       | 97.62        | 97.64     | 97.62   | 97.63 |
+| Model                      | Hyperparameters                                                                 | Accuracy (%)  | Precision | Recall  | F1-score |
+|----------------------------|---------------------------------------------------------------------------------|---------------|-----------|---------|----------|
+| **K-Nearest Neighbors**    | `n_neighbors=4`, `weights=distance`, `p=2`                                      | 92.54        | 0.9262    | 0.9254  | 0.9257    |
+| **SVM (Linear)**           | `kernel=linear`, `C=2`, `loss=hinge`, `max_iter=3000`, `multi_class=ovr`        | 81.36        | 0.8143    | 0.8136  | 0.8120    |
+| **SVM (RBF Kernel)**       | `kernel=rbf`, `C=370`, `gamma=0.5`, `decision_function_shape=ovr`               | 97.27        | 0.9728    | 0.9727  | 0.9727    |
+| **SVM (Polynomial Kernel)**| `kernel=poly`, `C=2`, `gamma=10`, `degree=3`, `decision_function_shape=ovr`     | 97.80        | 0.9782    | 0.9780  | 0.9780    |
+| **Random Forest**          | `n_estimators=500`                                                              | 95.09        | 0.9514    | 0.9509  | 0.9510    |
+| **Extreme Gradient Boosting** | `n_estimators=500`, `learning_rate=0.1`, `max_depth=3`                       | 97.62        | 97.64     | 97.62   | 97.63     |
 
 
 **Key insights after 25+ runs:**
