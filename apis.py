@@ -1,4 +1,3 @@
-import os
 import time
 import logging
 import joblib
@@ -8,7 +7,6 @@ import pandas as pd
 from download_model import download
 
 from fastapi import Body, FastAPI, Request
-from contextlib import asynccontextmanager
 from fastapi.responses import JSONResponse, Response
 from fastapi.middleware.cors import CORSMiddleware
 from preprocessing import center_landmarks, normalize_landmarks
