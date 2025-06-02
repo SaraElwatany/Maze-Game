@@ -1,16 +1,22 @@
+import os
 import time
 import logging
 import joblib
 import uvicorn
 import statistics
 import pandas as pd
+from download_model import download
 
 from fastapi import Body, FastAPI, Request
+from contextlib import asynccontextmanager
 from fastapi.responses import JSONResponse, Response
 from fastapi.middleware.cors import CORSMiddleware
+from preprocessing import center_landmarks, normalize_landmarks
+
 
 # Prometheus client imports
 from prometheus_client import Summary, Counter, generate_latest, CONTENT_TYPE_LATEST
+
 
 
 # Set up logging for monitoring to file
@@ -22,6 +28,7 @@ logging.basicConfig(
 
 
 
+
 # Prometheus metrics
 inference_time_metric = Summary('model_inference_time_seconds', 'Time spent on model inference')
 model_failures = Counter('model_failures_total', 'Number of model prediction failures')
@@ -30,20 +37,45 @@ http_requests_total = Counter('http_requests_total', 'Total HTTP requests to end
 
 
 
-# Create the FastAPI app instance
-app = FastAPI()
-
-
 # Load the ML models
-rf_model = joblib.load("rf_model.pkl")
-svm_poly_model = joblib.load("svm_poly_model.pkl")
-svm_rbf_model = joblib.load("svm_rbf_model.pkl")
-xgb_model = joblib.load("xgb_model.pkl")
-xgb_label_encoder = joblib.load("xgb_label_encoder.pkl")
+# rf_model = None
+svm_poly_model = joblib.load("./models/svm_poly_model.pkl")
+svm_rbf_model = joblib.load("./models/svm_rbf_model.pkl")
+xgb_model = joblib.load("./models/xgb_model.pkl")
+xgb_label_encoder = joblib.load("./models/xgb_label_encoder.pkl")
+
+
 
 
 # Define feature columns (e.g., x1, y1, z1, ..., x21, y21, z21)
 feature_names = [f'{axis}{i}' for i in range(1, 22) for axis in ['x', 'y', 'z']]
+
+
+
+
+
+# @asynccontextmanager
+# async def lifespan(app: FastAPI):
+
+#     global rf_model
+
+#     if not os.path.exists("./models/rf_model.pkl"):
+#         download()
+
+#     rf_model = joblib.load("./models/rf_model.pkl")
+#     yield  
+
+
+
+
+
+
+# # Create the FastAPI app instance
+# app = FastAPI(lifespan=lifespan)
+app = FastAPI()
+
+
+
 
 
 # Allow CORS (all origins)
@@ -67,27 +99,6 @@ async def log_server_errors(request: Request, call_next):
     except Exception as e:
         logging.error(f"Unhandled Exception - Path: {request.url.path}, Error: {str(e)}")
         raise e
-
-
-
-def center_landmarks(col, landmarks_df):
-    col_name = col.name
-    if 'x' in col_name:
-        col = col - landmarks_df['x1']
-    elif 'y' in col_name:
-        col = col - landmarks_df['y1']
-    return col
-
-
-
-def normalize_landmarks(col, landmarks_df):
-    col_name = col.name
-    if 'x' in col_name:
-        col = col / landmarks_df['x13']
-    elif 'y' in col_name:
-        col = col / landmarks_df['y13']
-    return col
-
 
 
 
@@ -136,11 +147,12 @@ async def predict(request: Request):
             df_centered = df.apply(lambda col: center_landmarks(col, df), axis=0)
             df_normalized = df_centered.apply(lambda col: normalize_landmarks(col, df), axis=0)
 
+
             # Model prediction
             predictions = [
                 svm_rbf_model.predict(df_normalized)[0],
                 svm_poly_model.predict(df_normalized)[0],
-                rf_model.predict(df_normalized)[0],
+                #rf_model.predict(df_normalized)[0],
                 xgb_label_encoder.inverse_transform([xgb_model.predict(df_normalized)[0]])[0]
             ]
 
