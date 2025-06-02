@@ -1,4 +1,4 @@
-# ML Course Final Project - Gesture Control Game
+# 🧠 Maze Game Using Hand Gestures
 
 This project implements a gesture-controlled game using machine learning for gesture recognition. Players can control the game using hand gestures captured through their webcam.
 
