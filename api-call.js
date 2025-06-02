@@ -22,7 +22,7 @@ async function getPredictedLabel(landmarks) {
 
   try {
 
-    const response = await fetch("http://127.0.0.1:8000/predict", {
+    const response = await fetch("http://rkagrzadomxf.eu-central-1.clawcloudrun.com/predict", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
