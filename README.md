@@ -36,13 +36,14 @@ This branch focuses on research and experimentation with various machine learnin
 
 ## 📁 Project Structure
 ```<code>
-├── mlartifacts/ # Stores serialized models, metrics, and artifacts from experiments
-├── mlruns/ # MLflow tracking directory for experiment runs
-├── src/ # Source code including data loading, preprocessing, training scripts
-├── plot_confusion_matrix.png # Visualization of the confusion matrix for model evaluation
-├── requirements.txt # Python dependencies for setting up the environment
-├── .gitignore # Files and directories to be ignored by Git
-└── README.md # Project overview and instructions
+Maze-Game/
+├── mlartifacts/       # Stores serialized models, metrics, and artifacts from experiments
+├── mlruns/            # MLflow tracking directory for experiment runs
+├── src/               # Source code including data loading, preprocessing, and training scripts
+├── plot_confusion_matrix.png       # Visualization of the confusion matrix for model evaluation
+├── requirements.txt                # Python dependencies for setting up the environment
+├── .gitignore                      # Files and directories to be ignored by Git
+└── README.md                       # Project overview and instructions
 ```
 
 
