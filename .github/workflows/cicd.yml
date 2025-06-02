@@ -1,4 +1,4 @@
-name: Build, Push to Docker Hub, and Deploy to ClawCloud
+name: Build, and Push to Docker Hub 
 
 on:
   push:
@@ -41,17 +41,3 @@ jobs:
       - name: Push Docker image to Docker Hub
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/$IMAGE_NAME:$IMAGE_TAG
-
-      - name: Deploy to ClawCloud via SSH
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.CLAW_HOST }}
-          username: ${{ secrets.CLAW_USERNAME }}
-          key: ${{ secrets.CLAW_SSH_KEY }}
-          script: |
-            docker pull ${{ secrets.DOCKER_USERNAME }}/$IMAGE_NAME:$IMAGE_TAG
-
-            docker stop $IMAGE_NAME || true
-            docker rm $IMAGE_NAME || true
-
-            docker run -d -p 80:8000 --name $IMAGE_NAME ${{ secrets.DOCKER_USERNAME }}/$IMAGE_NAME:$IMAGE_TAG
