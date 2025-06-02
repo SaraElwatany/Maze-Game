@@ -24,24 +24,21 @@ This project implements a gesture-controlled game using machine learning for ges
 - `maze.js` - Maze game logic
 - `mp.js` - Media processing utilities
 
-## 🔧 Important Implementation Note
-
-In `api-call.js`, there is a TODO section that needs to be implemented:
-
-```javascript
-// TODO: Call your model's api here
-// and return the predicted label
-// Possible labels: "up", "down", "left", "right", null
-// null means stop & wait for the next gesture
-```
-
-You need to replace the current random label generation with your actual ML model API call. The function should:
-- Take the processed tensor (`processed_t`) as input
-- Call your deployed ML model's API
-- Return one of these labels: "up", "down", "left", "right", or null
-
 ## 🎮 Controls
 
-The game can be controlled through:
-- Hand gestures (via webcam)
-- Keyboard arrows (as fallback)
+You can control the game using:
+
+### ✋ Hand Gestures (via Webcam)
+
+✌️ Peace sign → Move Left
+
+☝️ One finger → Move Right
+
+👍 Thumbs up → Move Up
+
+👎 Thumbs down → Move Down
+
+
+### ⌨️ Keyboard (Fallback Controls)
+
+Arrow keys → Move in respective directions
