@@ -180,7 +180,6 @@ cython_debug/
 
 # Ignore models
 rf_model.pkl
-xgb_model.pkl
 
 
 # Ignore virtual environment
