@@ -6,11 +6,12 @@
 - [Project Structure](#project-structure)
 - [Setup Instructions](#setup-instructions)
 - [Experimentation with MLflow](#experimentation-with-mlflow)
-- [Model Selection & Results](#model-selection--results)
+- [Model Performance Summary](#model-performance-summary)
 - [Staging vs Production Justification](#staging-vs-production-justification)
   
 
 ---
+
 
 ## 📌 About the Branch
 
@@ -26,16 +27,27 @@ This branch focuses on research and experimentation with various machine learnin
 
 - Separation of research code in the research branch
 
-**Dataset:** Synthetic bank customer data with features such as age, balance, credit score, etc.
+**Dataset:** HaGRID Dataset  
+**Features:** 21 hand landmarks per frame (each with x, y, z coordinates)  
+**Total Input Features:** 63 (21 landmarks × 3 coordinates)
 
 ---
 
+
 ## 📁 Project Structure
-```bash
+```<code>
+├── mlartifacts/ # Stores serialized models, metrics, and artifacts from experiments
+├── mlruns/ # MLflow tracking directory for experiment runs
+├── src/ # Source code including data loading, preprocessing, training scripts
+├── plot_confusion_matrix.png # Visualization of the confusion matrix for model evaluation
+├── requirements.txt # Python dependencies for setting up the environment
+├── .gitignore # Files and directories to be ignored by Git
+└── README.md # Project overview and instructions
 ```
 
 
 ---
+
 
 ## ⚙️ Setup Instructions
 
@@ -78,6 +90,7 @@ python src/main.py
 
 ---
 
+
 ## 🔬Experimentation with MLflow
 
 Multiple experiments were run and tracked:
@@ -109,6 +122,7 @@ Tracked models:
 
 ---
 
+
 ### 📊 Model Performance Summary
 
 | Model                      | Hyperparameters                                                                 | Accuracy (%) | Precision | Recall  | F1-score |
@@ -123,13 +137,14 @@ Tracked models:
 
 **Key insights after 25+ runs:**
 
-- **Extreme Gradient Boosting** consistently achieved the highest accuracy and balanced precision, recall, and F1 scores, making it the best candidate for production deployment due to its robust performance.
+- **SVM (RBF Kernel)** , **SVM (Polynomial Kernel)**, **Extreme Gradient Boosting**:  These models showed **consistently high accuracy and F1-scores**, making them reliable for deployment.
 
-- **Random Forest** showed slightly lower metrics but offers faster computation and lower resource use, making it suitable for staging or speed-critical scenarios.
+- **Random Forest** was excluded despite strong performance due to its **large model size** and potential **latency concerns** in production settings. Efficiency was prioritized along with accuracy for real-time inference needs.
 
 
 
 ---
+
 
 ## 🚦 Staging vs Production Justification
 
