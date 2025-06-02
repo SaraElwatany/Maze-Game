@@ -4,7 +4,6 @@ import joblib
 import uvicorn
 import statistics
 import pandas as pd
-from download_model import download
 
 from fastapi import Body, FastAPI, Request
 from fastapi.responses import JSONResponse, Response
