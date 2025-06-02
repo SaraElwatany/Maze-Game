@@ -4,8 +4,9 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import ConfusionMatrixDisplay
 
 from model import train
-from preprocessing import preprocess
 from evaluation import evaluate_model
+from preprocessing import preprocess, encode_labels
+
 
 
 
@@ -62,13 +63,16 @@ def main():
                     y_pred = model.predict(X_test)
 
                     # Evaluate and log metrics
+                    if current_model == 'ExtremeGradientBoosting':
+                        y_test = encode_labels(y_test)
+
                     conf_mat, acc, precision, recall, f1 = evaluate_model(y_pred, y_test)
                     mlflow.log_metrics({
-                        "accuracy": acc,
-                        "precision": precision,
-                        "recall": recall,
-                        "f1_score": f1
-                    })
+                                        "accuracy": acc,
+                                        "precision": precision,
+                                        "recall": recall,
+                                        "f1_score": f1
+                                    })
 
                     # Log metadata
                     mlflow.set_tag("version", "1.3")
@@ -81,6 +85,11 @@ def main():
                     plt.savefig(artifact_path)
                     mlflow.log_artifact(artifact_path, artifact_path="artifacts")
                     plt.close()
+
+
+                    # Save & Log the model
+                    mlflow.sklearn.log_model(model, artifact_path="Model")
+
 
                 finally:
                     mlflow.end_run()

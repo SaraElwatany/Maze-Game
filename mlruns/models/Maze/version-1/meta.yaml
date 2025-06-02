@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1748645288377
+current_stage: Production
+description: ''
+last_updated_timestamp: 1748645313283
+name: Maze
+run_id: bf5f2aae3b0d401db959131b79a14bfc
+run_link: ''
+source: mlflow-artifacts:/172847569434068276/bf5f2aae3b0d401db959131b79a14bfc/artifacts/Model
+status: READY
+status_message: null
+storage_location: mlflow-artifacts:/172847569434068276/bf5f2aae3b0d401db959131b79a14bfc/artifacts/Model
+user_id: null
+version: 1
