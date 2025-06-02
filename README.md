@@ -133,7 +133,7 @@ Tracked models:
 | **SVM (RBF Kernel)**       | `kernel=rbf`, `C=370`, `gamma=0.5`, `decision_function_shape=ovr`               | 97.27        | 0.9728    | 0.9727  | 0.9727   |
 | **SVM (Polynomial Kernel)**| `kernel=poly`, `C=2`, `gamma=10`, `degree=3`, `decision_function_shape=ovr`     | 97.80        | 0.9782    | 0.9780  | 0.9780   |
 | **Random Forest**          | `n_estimators=500`                                                              | 95.09        | 0.9514    | 0.9509  | 0.9510   |
-| **Extreme Gradient Boosting** | `n_estimators=500`, `learning_rate=0.1`, `max_depth=3`                      | *Pending*    | *Pending* | *Pending* | *Pending* |
+| **Extreme Gradient Boosting** | `n_estimators=500`, `learning_rate=0.1`, `max_depth=3`                       | 97.62        | 97.64     | 97.62   | 97.63 |
 
 
 **Key insights after 25+ runs:**
@@ -151,23 +151,25 @@ Tracked models:
 
 To determine the most suitable models for deployment, a majority voting ensemble strategy was employed. This approach combines the predictions of multiple top-performing models to make a final decision based on the majority class predicted by those models. Specifically, the following models participated in the ensemble:
 
-- Extreme Gradient Boosting
+- **Extreme Gradient Boosting**
 
-- Support Vector Machines (RBF Kernel)
+- **Support Vector Machines (RBF Kernel)**
 
-- Support Vector Machines (Polynomial Kernel)
+- **Support Vector Machines (Polynomial Kernel)**
 
 These models consistently performed well across key metrics (accuracy, precision, recall, F1-score), and their diversity in algorithmic approach improved generalization through ensemble voting.
 
 While the Random Forest model also demonstrated solid performance during experimentation, it was ultimately excluded from the final ensemble due to its large model size and memory footprint, which posed challenges for deployment in resource-constrained environments (e.g., edge devices or cloud-based inference with limited capacity). The tradeoff favored maintaining a lightweight and efficient deployment pipeline without significantly compromising accuracy.
 
+
+
 ### ✅ Final Production Models:
 
-- Extreme Gradient Boosting
+- **Extreme Gradient Boosting**
 
-- SVM with RBF Kernel
+- **SVM with RBF Kernel**
 
-- SVM with Polynomial Kernel
+- **SVM with Polynomial Kernel**
 
 These models now serve in production through an ensemble voting mechanism, ensuring robustness and reliability during inference.
 
