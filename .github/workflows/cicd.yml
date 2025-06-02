@@ -32,7 +32,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/$IMAGE_NAME:$IMAGE_TAG ./apis
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/$IMAGE_NAME:$IMAGE_TAG .
 
       - name: Login to Docker Hub
         run: |
